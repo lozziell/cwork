@@ -14,11 +14,8 @@ bcrypt = Bcrypt(app)
 @app.route('/newuser', methods=['POST'])
 def new_user():
 	pw_hash = bcrypt.generate_password_hash('{}'.format(request.json["pword"])).decode('utf-8')
-	#pw_hash = bcrypt.generate_password_hash('{}'.format(request.json["pword"]))
 	session.execute( """INSERT INTO symp.users  (username,pword) VALUES('{}','{}') """.format(request.json['username'],pw_hash))
 	return jsonify({"success":True})
-#to check match
-#if(bcrypt.check_password_hash(pw_hash,'plaintext')) = True:
 
 # home screen welcome
 @app.route('/')
@@ -63,6 +60,7 @@ def create():
 # PUT method to update second symptom in record with AUTH
 @app.route('/symps', methods= ['PUT'])
 def update():
+	#retrive hashcode data from DB in correct form
 	result = session.execute( """ SELECT pword FROM symp.users WHERE username = '{}' """.format(request.json['username']))
 	first_row = result[0]
 	pw_hash = first_row[0]
