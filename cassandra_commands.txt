@@ -1,0 +1,11 @@
+#Didnt retain all original commands, examples of what I used are shown below:
+
+#created tablespace
+CREATE KEYSPACE symps WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 1};
+
+#created two tables - one for users and one for symptoms
+CREATE TABLE symps.stats (email_address te int, ...;
+CREATE TABLE symps.users (username text PRIMARY KEY, pword);
+
+#Inserted dummy data into symptoms table 
+INSERT INTO symps.stats(email_address, ...) VALUES (test@email.com ...)
